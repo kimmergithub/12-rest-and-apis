@@ -12,6 +12,28 @@ var app = app || {};
     //       being an array with a bunch of repo objects in it, so you'll need to
     //       populate it with the response from Github before you call the callback.
       // AJAX FUNCTION GOES HERE... github ajax from class...
+
+    $.ajax({
+      url: 'https://api.github.com/user',
+      method: 'GET',
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`
+      }
+    })
+      .then(
+       data => {
+         console.log(data);
+         $.get(data.repos_url).then(console.log);
+
+         // Object.keys(data).forEach(line => $('#results').append(`
+         //     <li>${line}: ${data[line]}</li>
+         //   `)
+         // )
+       },
+       err => {
+         console.error(err);
+       }
+      )
   };
 
   // REVIEW: Model method that filters the full collection for repos with a particular attribute.
